@@ -1,4 +1,4 @@
-﻿#include <algorithm>
+#include <algorithm>
 #include <cassert>
 #include "BVH.hpp"
 
@@ -104,30 +104,6 @@ Intersection BVHAccel::Intersect(const Ray& ray) const
 
 Intersection BVHAccel::getIntersection(BVHBuildNode* node, const Ray& ray) const
 {
-	/*Intersection intersectionLeft = getIntersection(node->left, ray);
-	Intersection intersectionRight = getIntersection(node->right, ray);
-	return */
-	Intersection isect;
-
-	std::array<int, 3> dirIsNeg;
-	dirIsNeg[0] = int(ray.direction.x >= 0);
-	dirIsNeg[1] = int(ray.direction.y >= 0);
-	dirIsNeg[2] = int(ray.direction.z >= 0);
-
-	if (!node->bounds.IntersectP(ray, ray.direction_inv, dirIsNeg))
-	{
-		return isect;
-	}
-
-	if (node->left == nullptr && node->right == nullptr)
-	{
-		isect = node->object->getIntersection(ray);
-		return isect;
-	}
-
-	auto hit1 = getIntersection(node->left, ray);
-	auto hit2 = getIntersection(node->right, ray);
-
-	return hit1.distance < hit2.distance ? hit1 : hit2;
+    // TODO Traverse the BVH to find intersection
 
 }

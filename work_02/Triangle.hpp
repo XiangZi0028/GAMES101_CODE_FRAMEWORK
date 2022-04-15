@@ -1,7 +1,9 @@
 //
 // Created by LEI XU on 4/11/19.
 //
-#pragma once
+
+#ifndef RASTERIZER_TRIANGLE_H
+#define RASTERIZER_TRIANGLE_H
 
 #include <eigen3/Eigen/Eigen>
 
@@ -27,3 +29,9 @@ public:
     std::array<Vector4f, 3> toVector4() const;
 };
 
+
+
+
+
+
+#endif //RASTERIZER_TRIANGLE_H

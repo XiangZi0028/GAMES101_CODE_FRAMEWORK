@@ -35,17 +35,14 @@ void Renderer::Render(const Scene& scene)
             // *scale*, and x (horizontal) variable with the *imageAspectRatio*
 
             // Don't forget to normalize this direction!
-			Vector3f dir = normalize(Vector3f(x, y, -1.f)); 
-			Ray ray(eye_pos, dir);
-			framebuffer[m++] = scene.castRay(ray, 0);
-			
+
         }
         UpdateProgress(j / (float)scene.height);
     }
     UpdateProgress(1.f);
 
     // save framebuffer to file
-    FILE* fp = fopen("binary_06.pgm", "wb");
+    FILE* fp = fopen("binary.ppm", "wb");
     (void)fprintf(fp, "P6\n%d %d\n255\n", scene.width, scene.height);
     for (auto i = 0; i < scene.height * scene.width; ++i) {
         static unsigned char color[3];
