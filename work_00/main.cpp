@@ -16,7 +16,7 @@ int main(){
 
     // Example of vector
     std::cout << "Example of vector \n";
-    // vector definition
+    // vector definition (column vector)
     Eigen::Vector3f v(1.0f,2.0f,3.0f);
     Eigen::Vector3f w(1.0f,0.0f,0.0f);
     // vector output
@@ -29,6 +29,12 @@ int main(){
     std::cout << "Example of scalar multiply \n";
     std::cout << v * 3.0f << std::endl;
     std::cout << 2.0f * v << std::endl;
+    
+    std::cout << "Example of vector dot and cross"<<std::endl;
+    // vector dot
+    std::cout << v.dot(w) << std::endl;
+    // vector cross
+    std::cout << v.cross(w) << std::endl;
 
     // Example of matrix
     std::cout << "Example of matrix \n";
@@ -40,9 +46,13 @@ int main(){
     std::cout << "Example of output \n";
     std::cout << i << std::endl;
     // matrix add i + j
+    std::cout << i + j << std::endl;
     // matrix scalar multiply i * 2.0
+    std::cout << i * 2 << std::endl;
     // matrix multiply i * j
+    std::cout << i * j << std::endl;
     // matrix multiply vector i * v
-
+    std::cout << i * v << std::endl;
+    
     return 0;
 }

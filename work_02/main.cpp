@@ -6,7 +6,7 @@
 #include "Triangle.hpp"
 
 constexpr double MY_PI = 3.1415926;
-
+inline double DEG2RAD(double deg) {return deg * MY_PI/180;}
 Eigen::Matrix4f get_view_matrix(Eigen::Vector3f eye_pos)
 {
     Eigen::Matrix4f view = Eigen::Matrix4f::Identity();
@@ -32,7 +32,12 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
 {
     // TODO: Copy-paste your implementation from the previous assignment.
     Eigen::Matrix4f projection;
+    const float tanHalfFovy=tan(DEG2RAD(eye_fov/2.0f)*zNear);
 
+    projection << zNear/ -tanHalfFovy * aspect_ratio,0,0,0,
+                  0,zNear/ -tanHalfFovy,0,0,
+                  0,0,(zNear+zFar)/(zNear-zFar),(2*zNear*zFar)/(zFar-zNear),
+                  0,0,1,0;
     return projection;
 }
 
@@ -48,7 +53,7 @@ int main(int argc, const char** argv)
         filename = std::string(argv[1]);
     }
 
-    rst::rasterizer r(700, 700);
+    rst::rasterizer r(1080, 1080);
 
     Eigen::Vector3f eye_pos = {0,0,5};
 
@@ -95,7 +100,7 @@ int main(int argc, const char** argv)
         r.set_projection(get_projection_matrix(45, 1, 0.1, 50));
 
         r.draw(pos_id, ind_id, col_id, rst::Primitive::Triangle);
-        cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());
+        cv::Mat image(1080, 1080, CV_32FC3, r.frame_buffer().data());
         image.convertTo(image, CV_8UC3, 1.0f);
         cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
 
@@ -114,7 +119,7 @@ int main(int argc, const char** argv)
 
         r.draw(pos_id, ind_id, col_id, rst::Primitive::Triangle);
 
-        cv::Mat image(700, 700, CV_32FC3, r.frame_buffer().data());
+        cv::Mat image(1080, 1080, CV_32FC3, r.frame_buffer().data());
         image.convertTo(image, CV_8UC3, 1.0f);
         cv::cvtColor(image, image, cv::COLOR_RGB2BGR);
         cv::imshow("image", image);
